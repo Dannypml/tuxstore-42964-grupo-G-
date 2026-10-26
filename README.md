@@ -12,7 +12,7 @@ Estructura de Datos · Evaluacion por competencias C2 · 2026-20 · NRC `<NRC>` 
 | Integrante | Usuario de GitHub | Rol | Requisitos |
 |---|---|---|---|
 |  |  | Lider (scrum) |  |
-|  |  | Dev · catalogo | R1, R5 |
+|  |  nb| Dev · catalogo | R1, R5 |
 |  |  | Dev · descargas | R2, R3 |
 |  |  | Dev · disco y archivo | R4, R6 |
 |  |  | QA y documentacion | R7, pruebas |
