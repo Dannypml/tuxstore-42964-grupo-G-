@@ -13,8 +13,8 @@ Estructura de Datos · Evaluacion por competencias C2 · 2026-20 · NRC `<NRC>` 
 |---|---|---|---|
 |Danny|Dannypml| Lider (scrum) |  |
 |Dennys|DENNYS| Dev · catalogo | R1, R5 |
-|Eduardo|  | Dev · descargas | R2, R3 |
-|  |  | Dev · disco y archivo | R4, R6 |
+|Eduardo|Eduardo Quinta| Dev · descargas | R2, R3 |
+|Carlos|76907318-coder| Dev · disco y archivo | R4, R6 |
 |Tonny|Tonny | QA y documentacion | R7, pruebas |
 
 Tablero del equipo: `<enlace a GitHub Projects>` · Presentacion: `<enlace>`
