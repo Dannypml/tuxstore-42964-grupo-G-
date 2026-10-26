@@ -19,11 +19,11 @@ Si un acuerdo cambia, se actualiza aqui **con fecha**. Nada de borrar: se tacha 
 - Tiempo maximo para responder un mensaje del equipo: 1 hora
 - Las decisiones se registran en: (Issue / pull request / acta)
 - Si no estamos de acuerdo, decidimos asi: 
-- Si alguien no puede cumplir una tarea, avisa con esta anticipacion: Problema de Complicación
+- Si alguien no puede cumplir una tarea, avisa con esta anticipación: Problema de Complicación por motivos personales. 
 
 ## Actas de reuniones
 
-### Acta 1 · fecha: 26/10/2026 · medio: presencial / virtual
+### Acta 1 · fecha: 27/10/2026 · medio: presencial / virtual
 - Asistentes:
 - Temas:
 - Acuerdos (que · quien · para cuando):
