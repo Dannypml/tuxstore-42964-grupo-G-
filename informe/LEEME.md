@@ -4,7 +4,9 @@ ASIGNATURA: ESTRUCTURA DE DATOS
 
 Rol QA y documentación: Cristofer Tonny Yanqui Laura
 
-Requisitos FuncionalesGestión del Catálogo (Lista Enlazada): El sistema debe permitir insertar aplicaciones al final del catálogo, buscar por nombre exacto o parcial, modificar prioridades y retirar apps que estén disponibles. 
+Requisitos Funcionales
+
+Gestión del Catálogo (Lista Enlazada): El sistema debe permitir insertar aplicaciones al final del catálogo, buscar por nombre exacto o parcial, modificar prioridades y retirar apps que estén disponibles. 
 
 Fila de Descargas (Cola de Prioridad): Se debe encolar aplicaciones validando que existan y haya disponibilidad. El orden de salida prioriza el nivel (1 antes que 2, y 2 antes que 3) y resuelve empates mediante orden de llegada (FIFO).   
 
