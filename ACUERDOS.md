@@ -6,7 +6,11 @@ Si un acuerdo cambia, se actualiza aqui **con fecha**. Nada de borrar: se tacha 
 
 | Integrante | Rol | Requisitos o tareas | Revisa los PR de |
 |---|---|---|---|
-|Danny  |  |  |  |
+|Danny |Líder (scrum)|Mantiene el tablero al día, convoca las reuniones y redacta el acta
+||
+| |  |  |  |
+| |  |  |  |
+| |  |  |  |
 
 ## Como trabajamos
 
