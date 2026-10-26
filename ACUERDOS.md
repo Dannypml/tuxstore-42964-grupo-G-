@@ -5,7 +5,7 @@ Si un acuerdo cambia, se actualiza aqui **con fecha**. Nada de borrar: se tacha 
 ## Roles y reparto
 
 | Integrante | Rol | Requisitos o tareas | Revisa los PR de |
-|---|---|---|---|
+|--h-|---|---|---|
 |  |  |  |  |
 
 ## Como trabajamos
