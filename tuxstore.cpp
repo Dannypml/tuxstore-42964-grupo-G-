@@ -5,9 +5,12 @@
    Institucion: Universidad Continental
    Semestre   : 2026-20
    Compilador : Dev-C++ (MinGW / GCC, C++11 o superior)
-   NRC        :
-   Grupo      :
-   Integrantes:
+   NRC        :42964
+   Grupo      : "G"
+   Integrantes: Danny Abel león Huamán
+                Juan Dennys Cayllahua Apaza 
+                Juan Carlos Chani Chullo
+                Cristofer Tonny Yanqui Laura
    ============================================================= */
 
 #include <iostream>
