@@ -11,6 +11,7 @@
                 Juan Dennys Cayllahua Apaza 
                 Juan Carlos Chani Chullo
                 Cristofer Tonny Yanqui Laura
+                Eduardo Alexander Quinta Justo
    ============================================================= */
 
 #include <iostream>
@@ -48,15 +49,15 @@ struct NodoBloque {
     NodoBloque *sig;
 };
 
-// ===== FICHA =====
-const string SERVIDOR = "pinguino-de-prueba";
-const int VELOCIDAD   = 4;
-const int DISCO       = 150;
-const int N_APPS      = 8;
-string fNombre[N_APPS]  = {"discord", "htop", "openssh", "vlc", "cowsay", "godot", "neofetch", "obs"};
-string fVersion[N_APPS] = {"0.0.71",  "3.3",  "9.6",     "3.0", "3.03",   "4.3",   "7.1",      "30.1"};
-int    fMb[N_APPS]      = {95,        2,      8,         45,    1,        120,     1,          110};
-int    fPrio[N_APPS]    = {3,         1,      1,         3,     3,        2,       3,          3};
+// ===== FICHA ===== 
+const string SERVIDOR = "pinguino-magallanes";
+const int VELOCIDAD = 3;
+const int DISCO = 274;
+const int N_APPS = 8;
+string fNombre[N_APPS] = {"fail2ban", "nginx", "python3", "firefox", "libreoffice", "krita", "cmatrix", "steam"};
+string fVersion[N_APPS] = {"1.0", "1.24", "3.12", "128", "24.2", "5.2", "2.0", "1.0"};
+int fMb[N_APPS] = {2, 12, 38, 210, 380, 180, 1, 9};
+int fPrio[N_APPS] = {1, 1, 2, 2, 2, 3, 3, 3};
 // =================
 
 string estadoTexto(int e) {
