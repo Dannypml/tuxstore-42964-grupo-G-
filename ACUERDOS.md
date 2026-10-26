@@ -15,15 +15,15 @@ Si un acuerdo cambia, se actualiza aqui **con fecha**. Nada de borrar: se tacha 
 ## Como trabajamos
 
 - Horarios de trabajo y de reunion:
-- Canal de comunicacion (WhatsApp, Discord...):
-- Tiempo maximo para responder un mensaje del equipo:
+- Canal de comunicacion (WhatsApp, Discord...): WhatsApp 
+- Tiempo maximo para responder un mensaje del equipo: 1 hora
 - Las decisiones se registran en: (Issue / pull request / acta)
-- Si no estamos de acuerdo, decidimos asi:
-- Si alguien no puede cumplir una tarea, avisa con esta anticipacion:
+- Si no estamos de acuerdo, decidimos asi: 
+- Si alguien no puede cumplir una tarea, avisa con esta anticipacion: Problema de Complicación
 
 ## Actas de reuniones
 
-### Acta 1 · fecha: ____ · medio: presencial / virtual
+### Acta 1 · fecha: 26/10/2026 · medio: presencial / virtual
 - Asistentes:
 - Temas:
 - Acuerdos (que · quien · para cuando):
