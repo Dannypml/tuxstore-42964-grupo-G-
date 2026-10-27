@@ -1,3 +1,15 @@
+buscar kri
+agregar kdenlive 24.02120 3
+instalar krita 0
+instalar python3 4
+instalar nginx 7
+fila
+procesar
+instalar steam 8
+instalar steam 8
+prioridad smatrix 1
+
+
 instalar discord 0
 instalar htop 2
 instalar openssh 3
