@@ -1,4 +1,4 @@
-# Tux Store · servidor `<nombre-del-servidor>`
+# Tux Store · servidor `<pinguinos-magallanes>`
 
 ![Tux Store CI](../../actions/workflows/tuxstore.yml/badge.svg)
 
