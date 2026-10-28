@@ -12,7 +12,7 @@
                 Eduardo Alexander Quinta Justo
                 Juan Carlos Chani Chullo
                 Cristofer Tonny Yanqui Laura
-                
+                Eduardo Alexander Quinta Justo
    ============================================================= */
 
 #include <iostream>
@@ -50,15 +50,13 @@ struct NodoBloque {
     NodoBloque *sig;
 };
 
-// ===== FICHA ===== (copiar tal cual en tuxstore.cpp)
+// ===== FICHA ===== 
 const string SERVIDOR = "pinguino-magallanes";
 const int VELOCIDAD = 3;
 const int DISCO = 274;
 const int N_APPS = 8;
-string fNombre[N_APPS] = {"fail2ban", "nginx", "python3", "firefox",
-"libreoffice", "krita", "cmatrix", "steam"};
-string fVersion[N_APPS] = {"1.0", "1.24", "3.12", "128", "24.2", "5.2", "2.0",
-"1.0"};
+string fNombre[N_APPS] = {"fail2ban", "nginx", "python3", "firefox", "libreoffice", "krita", "cmatrix", "steam"};
+string fVersion[N_APPS] = {"1.0", "1.24", "3.12", "128", "24.2", "5.2", "2.0", "1.0"};
 int fMb[N_APPS] = {2, 12, 38, 210, 380, 180, 1, 9};
 int fPrio[N_APPS] = {1, 1, 2, 2, 2, 3, 3, 3};
 // =================
