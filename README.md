@@ -1,4 +1,4 @@
-# Tux Store · servidor `<nombre-del-servidor>`
+# Tux Store · servidor `<pinguinos-magallanes>`
 
 ![Tux Store CI](../../actions/workflows/tuxstore.yml/badge.svg)
 
@@ -11,11 +11,11 @@ Estructura de Datos · Evaluacion por competencias C2 · 2026-20 · NRC `<NRC>` 
 
 | Integrante | Usuario de GitHub | Rol | Requisitos |
 |---|---|---|---|
-|  |  | Lider (scrum) |  |
-|  |  nb| Dev · catalogo | R1, R5 |
-|  |  | Dev · descargas | R2, R3 |
-|  |  | Dev · disco y archivo | R4, R6 |
-|  |  | QA y documentacion | R7, pruebas |
+|Danny| Dannypml | Lider (scrum) | Mantener el tablero, convocar las reuniones y redacta el acta |
+|Dennys| 60703718-ui | Dev · catalogo | R1, R5 |
+|Eduardo|75282429-bot | Dev · descargas | R2, R3 |
+|Carlos| 76907318-coder | Dev · disco y archivo | R4, R6 |
+|Tonny| Tonny-Yanqui | QA y documentacion | R7 y las pruebas  |
 
 Tablero del equipo: `<enlace a GitHub Projects>` · Presentacion: `<enlace>`
 

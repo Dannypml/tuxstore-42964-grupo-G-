@@ -9,6 +9,7 @@
    Grupo      : "G"
    Integrantes: Danny Abel león Huamán
                 Juan Dennys Cayllahua Apaza 
+                Eduardo Alexander Quinta Justo
                 Juan Carlos Chani Chullo
                 Cristofer Tonny Yanqui Laura
                 Eduardo Alexander Quinta Justo

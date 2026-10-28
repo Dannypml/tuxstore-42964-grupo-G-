@@ -1,16 +1,27 @@
-instalar discord 0
-instalar htop 2
-instalar openssh 3
+buscar kri
+agregar kdenlive 24.02120 3
+instalar krita 0
+instalar python3 4
+instalar nginx 7
+fila
+procesar
+instalar steam 8
+prioridad smatrix 1
+instalar cmatrix 9
+instalar libreoffice 12
 fila
 procesar
 procesar
 procesar
-instalar vlc 31
 procesar
-instalar cowsay 35
-procesar
-reporte
+historial
 deshacer
 espacio
+retirar krita
+retirar nginx
+instalar fail2ban 35
+procesar
+procesar
+reporte
 guardar
 salir
