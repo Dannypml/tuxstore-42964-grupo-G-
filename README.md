@@ -11,11 +11,11 @@ Estructura de Datos · Evaluacion por competencias C2 · 2026-20 · NRC `<NRC>` 
 
 | Integrante | Usuario de GitHub | Rol | Requisitos |
 |---|---|---|---|
-|Danny|Dannypml| Lider (scrum) | Mantiene el tablero, convoca las reuniones y redacta el acta |
+|Danny|Dannypml| Lider (scrum) | Mantener el tablero, convocar las reuniones y redacta el acta |
 |Dennys|DENNYS| Dev · catalogo | R1, R5 |
 |Eduardo|Eduardo Quinta| Dev · descargas | R2, R3 |
 |Carlos|76907318-coder| Dev · disco y archivo | R4, R6 |
-|Tonny|Tonny | QA y documentacion | R7, pruebas |
+|Tonny|Tonny | QA y documentacion | R7 y las pruebas  |
 
 Tablero del equipo: `<enlace a GitHub Projects>` · Presentacion: `<enlace>`
 
