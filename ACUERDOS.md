@@ -6,11 +6,11 @@ Si un acuerdo cambia, se actualiza aqui **con fecha**. Nada de borrar: se tacha 
 
 | Integrante | Rol | Requisitos o tareas | Revisa los PR de |
 |---|---|---|---|
-|Danny León Huaman |Líder (scrum)|Mantiene el tablero al día, convoca las reuniones y redacta el acta
-|Dennys Cayllahua Apaza|Dev · catalogo  |R1 y R5 (lista enlazada)  |  |
-|Eduardo Quinta Justo |Dev · descargas  |R2 y R3 (cola de prioridad y cálculo de tiempos)  |  |
-|Carlos Chani Chullo|Dev · disco y archivo  |R4 y R6 (pila y persistencia)  |  |
-|Tonny Yaqnui Laura|QA y documentacion  |Pruebas, PRUEBAS.md, revisión del informe; R7  |  |
+|Danny Leon Huaman | Líder (scrum)|Mantiene el tablero al día, convoca las reuniones y redacta el acta | Revisa el PR7 y el informe de (Tonny) |
+|Dennys Cayllahua Apaza| Dev · catalogo |R1 y R5 (lista enlazada)  | Revisa los PR de (Carlos) R4 y R6 |
+|Eduardo Alexander Quinta Justo | Dev · descargas |R2 y R3 (cola de prioridad y cálculo de tiempos)  | No revisa ningun PR por cuestiones de tiempo |
+|Carlos Chani Chullo| Dev · disco y archivo  |R4 y R6 (pila y persistencia) | Revisa los PR de (Dennys) R1 y R5 |
+|Tonny Yaqnui Laura| QA y documentacion |Pruebas, PRUEBAS.md, revisión del informe; R7  | Revisa los PR de (Danny) y lo ayuda |
 
 ## Como trabajamos
 
