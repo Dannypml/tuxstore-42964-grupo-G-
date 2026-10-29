@@ -255,9 +255,6 @@ Evaluación por competencias C2 · NRC 42964 (lunes)
 
 **2.3 Diagramas de flujo \[E2\]**
 
-![Tux Store G - Diagrama instalar editable (según imagen)](imagenes/image3.png)
-
-![Tux Store Grupo G - Diagrama procesar R3 editable](imagenes/image4.png)
 
 <table>
 <colgroup>
