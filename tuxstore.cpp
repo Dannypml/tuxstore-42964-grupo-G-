@@ -200,12 +200,51 @@ int main() {
         }
         else if (orden == "instalar") {
             // TODO R2b
+            int seg;
+            // Validar que el usuario ingreso a la app y el tiempo
+            if (a1 == "" || a2 == "") {
+               cout << "E: Uso: instalar <app> <segundos>" << endl;
+            // Validar que el timepo ingresado sea positivo
+            } else if (!aEntero(a2, seg) || seg < 0) {
+               cout << "E: El valor de tiempo debe ser positivo" << endl;
+            } else {
+            // Buscar si la aplicacion existe en el catalogo
+               NodoApp *app = buscarApp(catalogo, a1);
+                  if (app == nullptr) {
+                     cout << "E: La app no existe" << a1 << endl;
+            // Verificar que la app no haya sido pedida
+                  } else if (app->estado != DISPONIBLE) {
+                     cout << "E: La app " << a1 << " ya esta en la fila o instalada" << endl;
+            // Regla del servidor (el tiempo ingresado no puede retroceder)
+                  } else if (seg < ultimaLlegada) {
+                     cout << "E: El segundo " << seg << " retrocede el tiempo (ultimo pedido: " << ultimaLlegada << ")" << endl;
+                  } else {
+            // Si pasa todos los filtros, ingresa a la cola y actualiza variables
+                  encolarConPrioridad(frente, final, app->nombre, seg, app->prioridad);
+                     app->estado = EN_FILA;
+                     ultimaLlegada = seg;
+                     cout << "En fila: " << app->nombre << " (prioridad " << app->prioridad << ")" << endl;
+                  }
+            }
         }
         else if (orden == "fila") {
             // TODO R2c
+           if (frente == nullptr) {
+              cout << "(fila vacia)" << endl;
+           } else {
+            // Recorrer la cola desde el frente hasta el final
+              cout << " frente";
+              NodoFila *p = frente;
+              while (p != nullptr) {
+                 cout << " -> " << p->nombre << "(" << p->prioridad << ")";
+                 p = p->sig;
+              }
+              cout << " <- final" << endl;
+           }
         }
         else if (orden == "procesar") {
             // TODO R3
+            
         }
         else if (orden == "historial") {
             // TODO R4a
