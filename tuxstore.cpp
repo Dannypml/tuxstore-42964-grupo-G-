@@ -371,6 +371,7 @@ int main() {
             } 
         }
         else if (orden == "historial") {
+           // TODO R4a
     if (tope == nullptr) {
         cout << "Historial vacío" << endl;
     } else {
@@ -383,6 +384,7 @@ int main() {
     }
 }
         else if (orden == "deshacer") {
+           // TODO R4b
     if (tope == nullptr) {
         cout << "E: No hay nada que deshacer" << endl;
     } else {
@@ -403,6 +405,7 @@ int main() {
     }
 }
         else if (orden == "espacio") {
+           // TODO R4c
     int ocupado = DISCO - libre;
     int bloques = 0;
     NodoBloque *actual = tope;
