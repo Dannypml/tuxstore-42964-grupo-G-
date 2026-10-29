@@ -244,7 +244,54 @@ int main() {
         }
         else if (orden == "procesar") {
             // TODO R3
-            
+            if (frente == nullptr){
+            // Validar si la fila de descargas esta vacia
+               cout << "La fila esta vacia" << endl;
+            } else {
+            // Extraer el nodo de la fila
+               NodoFila *pedido = frente;
+               frente = frente->sig;
+               if (frente == nullptr) final = nullptr;
+
+               NodoApp *app = buscarApp(catalogo, pedido->nombre);
+
+               if (app->mb > libre) {
+               // Verificar espacio (si no hay suficiente, se cancela y vuelve a estar disponible)
+                  cout << "E: No hay espacio suficiente para " << app->nombre
+                        << ": necesita" << app->mb << " Mb, libres " << libre << " MB" << endl;
+                  app->estado = DISPONIBLE;
+               } else {
+               // Calcular los tiempos de descarga
+                  int descarga = (app->mb + VELOCIDAD -1) / VELOCIDAD;
+                  if (reloj > pedido->llegada)
+                     app->inicio = reloj;
+                  else
+                     app->inicio = pedido->llegada;
+
+                  app->fin = app->inicio + descarga;
+                  app->espera = app->inicio - pedido->llegada;
+                  reloj = app->fin;
+                  libre = libre - app->mb;
+
+                  // Actualizar estadisticas y marcar como instalada
+                  instalaciones++;
+                  mbDescargados = mbDescargados + app->mb;
+                  sumaEspera = sumaEspera + app->espera;
+                  app->estado = INSTALADA;
+
+                  // Apilar el bloque en el historial para ser usado por el modulo de disco
+                  NodoBloque *bloque = new NodoBloque;
+                  bloque->nombre = app->nombre;
+                  bloque->mb = app->mb;
+                  bloque->sig = tope;
+                  tope = bloque;
+
+                  cout << app->nombre << ": descarga " << descarga << " s | inicio " << app->inicio
+                        << " | fin " << app->fin<< " | espera " << app->espera
+                        << " | libres " << libre << " MB" << endl;
+               }
+               delete pedido;
+            } 
         }
         else if (orden == "historial") {
             // TODO R4a
