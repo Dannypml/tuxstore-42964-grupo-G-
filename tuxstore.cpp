@@ -372,52 +372,51 @@ int main() {
         }
         else if (orden == "historial") {
            // TODO R4a
-    if (tope == nullptr) {
-        cout << "Historial vacío" << endl;
-    } else {
-        cout << "Historial del disco (tope → fondo):" << endl;
-        NodoBloque *actual = tope;
-        while (actual != nullptr) {
-            cout << "  " << actual->nombre << " - " << actual->mb << " MB" << endl;
-            actual = actual->sig;
+           if (tope == nullptr) {
+               cout << "Historial vacío" << endl;
+           } else {
+               cout << "Historial del disco (tope → fondo):" << endl;
+               NodoBloque *actual = tope;
+               while (actual != nullptr) {
+               cout << "  " << actual->nombre << " - " << actual->mb << " MB" << endl;
+               actual = actual->sig;
+               }
+           }
         }
-    }
-}
         else if (orden == "deshacer") {
            // TODO R4b
-    if (tope == nullptr) {
-        cout << "E: No hay nada que deshacer" << endl;
-    } else {
-        NodoBloque *bloque = tope;
-        tope = tope->sig;
-
-        libre += bloque->mb;
-
+           if (tope == nullptr) {
+               cout << "E: No hay nada que deshacer" << endl;
+           } 
+           else {
+               NodoBloque *bloque = tope;
+               tope = tope->sig;
+               libre += bloque->mb;
+              
         // Poner la app como disponible
         NodoApp *app = buscarApp(catalogo, bloque->nombre);
-        if (app != nullptr) {
-            app->estado = DISPONIBLE;
-            app->inicio = app->fin = app->espera = -1;
+             if (app != nullptr) {
+                 app->estado = DISPONIBLE;
+                 app->inicio = app->fin = app->espera = -1;
+             }
+           cout << "Deshecho: " << bloque->nombre << " (" << bloque->mb << " MB liberados)" << endl;
+           delete bloque;
+           }
         }
-
-        cout << "Deshecho: " << bloque->nombre << " (" << bloque->mb << " MB liberados)" << endl;
-        delete bloque;
-    }
-}
         else if (orden == "espacio") {
            // TODO R4c
-    int ocupado = DISCO - libre;
-    int bloques = 0;
-    NodoBloque *actual = tope;
-    while (actual != nullptr) {
-        bloques++;
-        actual = actual->sig;
-    }
-    cout << "Disco: " << DISCO << " MB total" << endl;
-    cout << "Ocupado: " << ocupado << " MB" << endl;
-    cout << "Libre: " << libre << " MB" << endl;
-    cout << "Bloques: " << bloques << endl;
-}
+           int ocupado = DISCO - libre;
+           int bloques = 0;
+           NodoBloque *actual = tope;
+           while (actual != nullptr) {
+                  bloques++;
+                  actual = actual->sig;
+           }
+           cout << "Disco: " << DISCO << " MB total" << endl;
+           cout << "Ocupado: " << ocupado << " MB" << endl;
+           cout << "Libre: " << libre << " MB" << endl;
+           cout << "Bloques: " << bloques << endl;
+        }
         else if (orden == "prioridad") {
             // TODO R5a
         }
