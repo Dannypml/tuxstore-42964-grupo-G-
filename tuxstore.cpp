@@ -104,7 +104,6 @@ NodoApp* buscarApp(NodoApp *catalogo, string nombre) {
 
 bool agregarAlFinal(NodoApp *&catalogo, string nombre, string version, int mb, int prioridad) {
     // TODO R1b
-    return false;
    if (buscarApp(catalogo, nombre) != nullptr) return false;
 
     NodoApp *n = crearApp(nombre, version, mb, prioridad);
