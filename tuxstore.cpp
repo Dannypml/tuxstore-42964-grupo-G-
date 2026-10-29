@@ -96,16 +96,59 @@ bool aEntero(string s, int &v) {
 
 NodoApp* buscarApp(NodoApp *catalogo, string nombre) {
     // TODO R1a
+     for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
+        if (p->nombre == nombre) return p;
+    }
     return nullptr;
 }
 
 bool agregarAlFinal(NodoApp *&catalogo, string nombre, string version, int mb, int prioridad) {
     // TODO R1b
     return false;
+   if (buscarApp(catalogo, nombre) != nullptr) return false;
+
+    NodoApp *n = crearApp(nombre, version, mb, prioridad);
+    if (catalogo == nullptr) {
+        catalogo = n;
+        return true;
+    }
+
+    NodoApp *p = catalogo;
+    while (p->sig != nullptr) p = p->sig;
+    p->sig = n;
+    return true;
 }
 
 void encolarConPrioridad(NodoFila *&frente, NodoFila *&final, string nombre, int llegada, int prioridad) {
     // TODO R2a
+   NodoFila *n = new NodoFila;
+    n->nombre = nombre;
+    n->llegada = llegada;
+    n->prioridad = prioridad;
+    n->sig = nullptr;
+
+    if (frente == nullptr) {
+        frente = final = n;
+        return;
+    }
+
+    if (prioridad < frente->prioridad || (prioridad == frente->prioridad && llegada < frente->llegada)) {
+        n->sig = frente;
+        frente = n;
+        if (final == nullptr) final = n;
+        return;
+    }
+
+    NodoFila *p = frente;
+    while (p->sig != nullptr &&
+           (p->sig->prioridad < prioridad ||
+            (p->sig->prioridad == prioridad && p->sig->llegada < llegada))) {
+        p = p->sig;
+    }
+
+    n->sig = p->sig;
+    p->sig = n;
+    if (p == final) final = n;
 }
 
 void leerOrden(string linea, string &orden, string &a1, string &a2, string &a3, string &a4) {
@@ -186,15 +229,52 @@ int main() {
 
         if (orden == "catalogo") {
             // TODO R1c
+              if (catalogo == nullptr) cout << "Catalogo vacio" << endl;
+            else {
+                for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
+                    mostrarApp(p);
+                }
+            }
         }
         else if (orden == "buscar") {
             // TODO R1d
+            if (a1 == "") cout << "E: Debes indicar un texto" << endl;
+            else {
+                bool hay = false;
+                for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
+                    if (p->nombre.find(a1) != string::npos || p->version.find(a1) != string::npos) {
+                        mostrarApp(p);
+                        hay = true;
+                    }
+                }
+                if (!hay) cout << "E: No se encontro " << a1 << endl;
+            }
         }
         else if (orden == "info") {
             // TODO R1e
+              NodoApp *a = buscarApp(catalogo, a1);
+            if (a == nullptr) cout << "E: No se encontro " << a1 << endl;
+            else {
+                cout << "  " << left << setw(12) << a->nombre << setw(9) << a->version
+                     << right << setw(5) << a->mb << " MB   prioridad " << a->prioridad
+                     << "   " << estadoTexto(a->estado) << endl;
+            }
         }
+        
         else if (orden == "agregar") {
             // TODO R1f
+              if (a1 == "" || a2 == "" || a3 == "" || a4 == "") {
+                cout << "E: Uso: agregar <app> <version> <MB> <prioridad>" << endl;
+            } else {
+                int mb, prio;
+                if (!aEntero(a3, mb) || !aEntero(a4, prio) || mb <= 0 || prio < 1 || prio > 3) {
+                    cout << "E: Datos invalidos para agregar " << a1 << endl;
+                } else if (!agregarAlFinal(catalogo, a1, a2, mb, prio)) {
+                    cout << "E: No se pudo agregar " << a1 << endl;
+                } else {
+                    cout << "Agregada: " << a1 << " " << a2 << endl;
+                }
+            }
         }
         else if (orden == "instalar") {
             // TODO R2b
