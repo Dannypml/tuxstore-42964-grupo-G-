@@ -24,12 +24,12 @@ Si un acuerdo cambia, se actualiza aqui **con fecha**. Nada de borrar: se tacha 
 ## Actas de reuniones
 
 ### Acta 1 · fecha: 27/10/2026 · medio: presencial / virtual
-- Asistentes:
-- Temas:
-- Acuerdos (que · quien · para cuando):
+- Asistentes:Tony,Leon,Chani,Cayllahua,Quinta
+- Temas:acordar la hora del envio 
+- Acuerdos (que · quien · para cuando):se acordo enviar  R1,R2,R3 y R4 el 28/10/26 antes de las 7 de la noche
 -
 
-### Acta 2 · fecha: ____
-- Asistentes:
-- Temas:
-- Acuerdos:
+### Acta 2 · fecha: 28/10/26
+- Asistentes:Tony,Leon,Chani,Cayllahua,Quinta
+- Temas: revision de los entregables
+- Acuerdos: sin acuerdos
