@@ -1,18 +1,17 @@
 /* =============================================================
    Curso      : Estructura de Datos (24UC00428)
    Evaluacion : C2 - Medicion de competencias - Semana 12
-   Proyecto   : Tux Store v2 (kit base)
+   Proyecto   : Tux Store v2
    Institucion: Universidad Continental
    Semestre   : 2026-20
    Compilador : Dev-C++ (MinGW / GCC, C++11 o superior)
-   NRC        :42964
+   NRC        : 42964
    Grupo      : "G"
-   Integrantes: Danny Abel león Huamán
+   Integrantes: Danny Abel León Huamán
                 Juan Dennys Cayllahua Apaza 
                 Eduardo Alexander Quinta Justo
                 Juan Carlos Chani Chullo
                 Cristofer Tonny Yanqui Laura
-                Eduardo Alexander Quinta Justo
    ============================================================= */
 
 #include <iostream>
@@ -94,17 +93,18 @@ bool aEntero(string s, int &v) {
     return true;
 }
 
+// TODO R1a
 NodoApp* buscarApp(NodoApp *catalogo, string nombre) {
-    // TODO R1a
-     for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
+    for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
         if (p->nombre == nombre) return p;
     }
     return nullptr;
 }
 
+// TODO R1b
 bool agregarAlFinal(NodoApp *&catalogo, string nombre, string version, int mb, int prioridad) {
-    // TODO R1b
-   if (buscarApp(catalogo, nombre) != nullptr) return false;
+    if (nombre == "" || version == "" || mb <= 0 || prioridad < 1 || prioridad > 3) return false;
+    if (buscarApp(catalogo, nombre) != nullptr) return false;
 
     NodoApp *n = crearApp(nombre, version, mb, prioridad);
     if (catalogo == nullptr) {
@@ -118,9 +118,9 @@ bool agregarAlFinal(NodoApp *&catalogo, string nombre, string version, int mb, i
     return true;
 }
 
+// TODO R2a
 void encolarConPrioridad(NodoFila *&frente, NodoFila *&final, string nombre, int llegada, int prioridad) {
-    // TODO R2a
-   NodoFila *n = new NodoFila;
+    NodoFila *n = new NodoFila;
     n->nombre = nombre;
     n->llegada = llegada;
     n->prioridad = prioridad;
@@ -134,20 +134,19 @@ void encolarConPrioridad(NodoFila *&frente, NodoFila *&final, string nombre, int
     if (prioridad < frente->prioridad || (prioridad == frente->prioridad && llegada < frente->llegada)) {
         n->sig = frente;
         frente = n;
-        if (final == nullptr) final = n;
         return;
     }
 
     NodoFila *p = frente;
     while (p->sig != nullptr &&
            (p->sig->prioridad < prioridad ||
-            (p->sig->prioridad == prioridad && p->sig->llegada < llegada))) {
+            (p->sig->prioridad == prioridad && p->sig->llegada <= llegada))) {
         p = p->sig;
     }
 
     n->sig = p->sig;
     p->sig = n;
-    if (p == final) final = n;
+    if (n->sig == nullptr) final = n;
 }
 
 void leerOrden(string linea, string &orden, string &a1, string &a2, string &a3, string &a4) {
@@ -226,234 +225,357 @@ int main() {
         if (orden == "") continue;
         cout << "> " << linea << endl;
 
+        // TODO R1c
         if (orden == "catalogo") {
-            // TODO R1c
-              if (catalogo == nullptr) cout << "Catalogo vacio" << endl;
+            if (catalogo == nullptr) cout << "(catalogo vacio)" << endl;
             else {
                 for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
                     mostrarApp(p);
                 }
             }
         }
+        // TODO R1d
         else if (orden == "buscar") {
-            // TODO R1d
             if (a1 == "") cout << "E: Debes indicar un texto" << endl;
             else {
                 bool hay = false;
                 for (NodoApp *p = catalogo; p != nullptr; p = p->sig) {
-                    if (p->nombre.find(a1) != string::npos || p->version.find(a1) != string::npos) {
+                    if (p->nombre.find(a1) != string::npos) {
                         mostrarApp(p);
                         hay = true;
                     }
                 }
-                if (!hay) cout << "E: No se encontro " << a1 << endl;
+                if (!hay) cout << "Sin resultados para " << a1 << endl;
             }
         }
+        // TODO R1e
         else if (orden == "info") {
-            // TODO R1e
-              NodoApp *a = buscarApp(catalogo, a1);
-            if (a == nullptr) cout << "E: No se encontro " << a1 << endl;
+            NodoApp *a = buscarApp(catalogo, a1);
+            if (a == nullptr) cout << "E: No existe la app " << a1 << endl;
             else {
-                cout << "  " << left << setw(12) << a->nombre << setw(9) << a->version
-                     << right << setw(5) << a->mb << " MB   prioridad " << a->prioridad
-                     << "   " << estadoTexto(a->estado) << endl;
-            }
-        }
-        
-        else if (orden == "agregar") {
-            // TODO R1f
-              if (a1 == "" || a2 == "" || a3 == "" || a4 == "") {
-                cout << "E: Uso: agregar <app> <version> <MB> <prioridad>" << endl;
-            } else {
-                int mb, prio;
-                if (!aEntero(a3, mb) || !aEntero(a4, prio) || mb <= 0 || prio < 1 || prio > 3) {
-                    cout << "E: Datos invalidos para agregar " << a1 << endl;
-                } else if (!agregarAlFinal(catalogo, a1, a2, mb, prio)) {
-                    cout << "E: No se pudo agregar " << a1 << endl;
-                } else {
-                    cout << "Agregada: " << a1 << " " << a2 << endl;
+                mostrarApp(a);
+                if (a->estado == INSTALADA) {
+                    cout << "  inicio: " << a->inicio << " | fin: " << a->fin << " | espera: " << a->espera << endl;
                 }
             }
         }
-        else if (orden == "instalar") {
-            // TODO R2b
-            int seg;
-            // Validar que el usuario ingreso a la app y el tiempo
-            if (a1 == "" || a2 == "") {
-               cout << "E: Uso: instalar <app> <segundos>" << endl;
-            // Validar que el timepo ingresado sea positivo
-            } else if (!aEntero(a2, seg) || seg < 0) {
-               cout << "E: El valor de tiempo debe ser positivo" << endl;
+        // TODO R1f
+        else if (orden == "agregar") {
+            if (a1 == "" || a2 == "" || a3 == "" || a4 == "") {
+                cout << "E: Uso: agregar <app> <version> <MB> <prioridad>" << endl;
             } else {
-            // Buscar si la aplicacion existe en el catalogo
-               NodoApp *app = buscarApp(catalogo, a1);
-                  if (app == nullptr) {
-                     cout << "E: La app no existe" << a1 << endl;
-            // Verificar que la app no haya sido pedida
-                  } else if (app->estado != DISPONIBLE) {
-                     cout << "E: La app " << a1 << " ya esta en la fila o instalada" << endl;
-            // Regla del servidor (el tiempo ingresado no puede retroceder)
-                  } else if (seg < ultimaLlegada) {
-                     cout << "E: El segundo " << seg << " retrocede el tiempo (ultimo pedido: " << ultimaLlegada << ")" << endl;
-                  } else {
-            // Si pasa todos los filtros, ingresa a la cola y actualiza variables
-                  encolarConPrioridad(frente, final, app->nombre, seg, app->prioridad);
-                     app->estado = EN_FILA;
-                     ultimaLlegada = seg;
-                     cout << "En fila: " << app->nombre << " (prioridad " << app->prioridad << ")" << endl;
-                  }
+                int mb, prio;
+                if (!aEntero(a3, mb) || !aEntero(a4, prio)) {
+                    cout << "E: No se pudo agregar " << a1 << endl;
+                } else if (!agregarAlFinal(catalogo, a1, a2, mb, prio)) {
+                    cout << "E: No se pudo agregar " << a1 << endl;
+                } else {
+                    cout << "Agregada: " << a1 << endl;
+                }
             }
         }
-        else if (orden == "fila") {
-            // TODO R2c
-           if (frente == nullptr) {
-              cout << "(fila vacia)" << endl;
-           } else {
-            // Recorrer la cola desde el frente hasta el final
-              cout << " frente";
-              NodoFila *p = frente;
-              while (p != nullptr) {
-                 cout << " -> " << p->nombre << "(" << p->prioridad << ")";
-                 p = p->sig;
-              }
-              cout << " <- final" << endl;
-           }
-        }
-        else if (orden == "procesar") {
-            // TODO R3
-            if (frente == nullptr){
-            // Validar si la fila de descargas esta vacia
-               cout << "La fila esta vacia" << endl;
+        // TODO R2b
+        else if (orden == "instalar") {
+            int seg;
+            if (a1 == "" || a2 == "") {
+                cout << "E: Uso: instalar <app> <segundos>" << endl;
+            } else if (!aEntero(a2, seg) || seg < 0) {
+                cout << "E: El valor de tiempo debe ser positivo" << endl;
             } else {
-            // Extraer el nodo de la fila
-               NodoFila *pedido = frente;
-               frente = frente->sig;
-               if (frente == nullptr) final = nullptr;
-
-               NodoApp *app = buscarApp(catalogo, pedido->nombre);
-
-               if (app->mb > libre) {
-               // Verificar espacio (si no hay suficiente, se cancela y vuelve a estar disponible)
-                  cout << "E: No hay espacio suficiente para " << app->nombre
-                        << ": necesita" << app->mb << " Mb, libres " << libre << " MB" << endl;
-                  app->estado = DISPONIBLE;
-               } else {
-               // Calcular los tiempos de descarga
-                  int descarga = (app->mb + VELOCIDAD -1) / VELOCIDAD;
-                  if (reloj > pedido->llegada)
-                     app->inicio = reloj;
-                  else
-                     app->inicio = pedido->llegada;
-
-                  app->fin = app->inicio + descarga;
-                  app->espera = app->inicio - pedido->llegada;
-                  reloj = app->fin;
-                  libre = libre - app->mb;
-
-                  // Actualizar estadisticas y marcar como instalada
-                  instalaciones++;
-                  mbDescargados = mbDescargados + app->mb;
-                  sumaEspera = sumaEspera + app->espera;
-                  app->estado = INSTALADA;
-
-                  // Apilar el bloque en el historial para ser usado por el modulo de disco
-                  NodoBloque *bloque = new NodoBloque;
-                  bloque->nombre = app->nombre;
-                  bloque->mb = app->mb;
-                  bloque->sig = tope;
-                  tope = bloque;
-
-                  cout << app->nombre << ": descarga " << descarga << " s | inicio " << app->inicio
-                        << " | fin " << app->fin<< " | espera " << app->espera
-                        << " | libres " << libre << " MB" << endl;
-               }
-               delete pedido;
-            } 
+                NodoApp *app = buscarApp(catalogo, a1);
+                if (app == nullptr) {
+                    cout << "E: La app no existe" << endl;
+                } else if (app->estado != DISPONIBLE) {
+                    cout << "E: La app " << a1 << " ya esta en la fila o instalada" << endl;
+                } else if (seg < ultimaLlegada) {
+                    cout << "E: El segundo " << seg << " retrocede el tiempo" << endl;
+                } else {
+                    encolarConPrioridad(frente, final, app->nombre, seg, app->prioridad);
+                    app->estado = EN_FILA;
+                    ultimaLlegada = seg;
+                    cout << "En fila: " << app->nombre << " (prioridad " << app->prioridad << ")" << endl;
+                }
+            }
         }
+        // TODO R2c
+        else if (orden == "fila") {
+            if (frente == nullptr) {
+                cout << "(fila vacia)" << endl;
+            } else {
+                cout << "frente ";
+                NodoFila *p = frente;
+                while (p != nullptr) {
+                    cout << "-> " << p->nombre << "(" << p->prioridad << ") ";
+                    p = p->sig;
+                }
+                cout << "final" << endl;
+            }
+        }
+        // TODO R3
+        else if (orden == "procesar") {
+            if (frente == nullptr) {
+                cout << "La fila esta vacia" << endl;
+            } else {
+                NodoFila *pedido = frente;
+                frente = frente->sig;
+                if (frente == nullptr) final = nullptr;
+
+                NodoApp *app = buscarApp(catalogo, pedido->nombre);
+
+                if (app->mb > libre) {
+                    cout << "E: No hay espacio suficiente para " << app->nombre
+                         << ": necesita " << app->mb << " MB, libres " << libre << " MB" << endl;
+                    app->estado = DISPONIBLE;
+                } else {
+                    int descarga = (app->mb + VELOCIDAD - 1) / VELOCIDAD;
+                    int inicioCalculado = (reloj > pedido->llegada) ? reloj : pedido->llegada;
+
+                    app->inicio = inicioCalculado;
+                    app->fin = app->inicio + descarga;
+                    app->espera = app->inicio - pedido->llegada;
+                    reloj = app->fin;
+                    libre -= app->mb;
+
+                    instalaciones++;
+                    mbDescargados += app->mb;
+                    sumaEspera += app->espera;
+                    app->estado = INSTALADA;
+
+                    NodoBloque *bloque = new NodoBloque;
+                    bloque->nombre = app->nombre;
+                    bloque->mb = app->mb;
+                    bloque->sig = tope;
+                    tope = bloque;
+
+                    cout << app->nombre << ": descarga " << descarga << " s | inicio " << app->inicio
+                         << " | fin " << app->fin << " | espera " << app->espera
+                         << " | libres " << libre << " MB" << endl;
+                }
+                delete pedido;
+            }
+        }
+        // TODO R4a
         else if (orden == "historial") {
-           // TODO R4a
-           if (tope == nullptr) {
-               cout << "Historial vacío" << endl;
-           } else {
-               cout << "Historial del disco (tope → fondo):" << endl;
-               NodoBloque *actual = tope;
-               while (actual != nullptr) {
-               cout << "  " << actual->nombre << " - " << actual->mb << " MB" << endl;
-               actual = actual->sig;
-               }
-           }
+            if (tope == nullptr) {
+                cout << "(historial vacio)" << endl;
+            } else {
+                NodoBloque *actual = tope;
+                while (actual != nullptr) {
+                    cout << "  " << actual->nombre << " - " << actual->mb << " MB" << endl;
+                    actual = actual->sig;
+                }
+            }
         }
+        // TODO R4b
         else if (orden == "deshacer") {
-           // TODO R4b
-           if (tope == nullptr) {
-               cout << "E: No hay nada que deshacer" << endl;
-           } 
-           else {
-               NodoBloque *bloque = tope;
-               tope = tope->sig;
-               libre += bloque->mb;
-              
-        // Poner la app como disponible
-        NodoApp *app = buscarApp(catalogo, bloque->nombre);
-             if (app != nullptr) {
-                 app->estado = DISPONIBLE;
-                 app->inicio = app->fin = app->espera = -1;
-             }
-           cout << "Deshecho: " << bloque->nombre << " (" << bloque->mb << " MB liberados)" << endl;
-           delete bloque;
-           }
+            if (tope == nullptr) {
+                cout << "Nada que deshacer" << endl;
+            } else {
+                NodoBloque *bloque = tope;
+                tope = tope->sig;
+                libre += bloque->mb;
+
+                NodoApp *app = buscarApp(catalogo, bloque->nombre);
+                if (app != nullptr) {
+                    app->estado = DISPONIBLE;
+                    app->inicio = app->fin = app->espera = -1;
+                }
+                cout << "Deshecho: " << bloque->nombre << " (" << bloque->mb << " MB liberados)" << endl;
+                delete bloque;
+            }
         }
+        // TODO R4c
         else if (orden == "espacio") {
-           // TODO R4c
-           int ocupado = DISCO - libre;
-           int bloques = 0;
-           NodoBloque *actual = tope;
-           while (actual != nullptr) {
-                  bloques++;
-                  actual = actual->sig;
-           }
-           cout << "Disco: " << DISCO << " MB total" << endl;
-           cout << "Ocupado: " << ocupado << " MB" << endl;
-           cout << "Libre: " << libre << " MB" << endl;
-           cout << "Bloques: " << bloques << endl;
+            int ocupado = DISCO - libre;
+            int bloques = 0;
+            NodoBloque *actual = tope;
+            while (actual != nullptr) {
+                bloques++;
+                actual = actual->sig;
+            }
+            cout << "Disco: total " << DISCO << " MB | ocupado " << ocupado << " MB | libres " << libre << " MB | bloques " << bloques << endl;
         }
+        // TODO R5a
         else if (orden == "prioridad") {
-            // TODO R5a
+            if (a1 == "" || a2 == "") {
+                cout << "E: Uso: prioridad <app> <prioridad>" << endl;
+            } else {
+                int p;
+                if (!aEntero(a2, p) || p < 1 || p > 3) {
+                    cout << "E: Prioridad invalida" << endl;
+                } else {
+                    NodoApp *app = buscarApp(catalogo, a1);
+                    if (app == nullptr) {
+                        cout << "E: La app no existe" << endl;
+                    } else if (app->estado == EN_FILA) {
+                        cout << "E: La app esta en la fila" << endl;
+                    } else {
+                        app->prioridad = p;
+                        cout << "Prioridad de " << a1 << " actualizada a " << p << endl;
+                    }
+                }
+            }
         }
+        // TODO R5b
         else if (orden == "retirar") {
-            // TODO R5b
+            if (a1 == "") {
+                cout << "E: Uso: retirar <app>" << endl;
+            } else {
+                NodoApp *ant = nullptr;
+                NodoApp *act = catalogo;
+
+                while (act != nullptr && act->nombre != a1) {
+                    ant = act;
+                    act = act->sig;
+                }
+
+                if (act == nullptr) {
+                    cout << "E: La app no existe" << endl;
+                } else if (act->estado != DISPONIBLE) {
+                    cout << "E: La app esta instalada o en fila" << endl;
+                } else {
+                    if (ant == nullptr) {
+                        catalogo = act->sig;
+                    } else {
+                        ant->sig = act->sig;
+                    }
+                    cout << "Retirada del catalogo: " << a1 << endl;
+                    delete act;
+                }
+            }
         }
+        // TODO R6a
         else if (orden == "guardar") {
             if (frente != nullptr) cout << "E: Procesen la fila antes de guardar" << endl;
             else {
                 ofstream f(ARCHIVO);
                 int n = 0, m = 0;
-                // TODO R6a
+
+                NodoApp *p = catalogo;
+                while (p != nullptr) {
+                    f << "A " << p->nombre << " " << p->version << " " << p->mb << " "
+                      << p->prioridad << " " << p->estado << "\n";
+                    n++;
+                    p = p->sig;
+                }
+
+                NodoBloque *b = tope;
+                while (b != nullptr) {
+                    f << "B " << b->nombre << " " << b->mb << "\n";
+                    m++;
+                    b = b->sig;
+                }
+
                 f.close();
                 cout << "Guardado: " << n << " apps y " << m << " bloques en " << ARCHIVO << endl;
             }
         }
+        // TODO R6b
         else if (orden == "cargar") {
             ifstream f(ARCHIVO);
             if (!f) cout << "E: No existe " << ARCHIVO << endl;
             else if (frente != nullptr) cout << "E: Procesen la fila antes de cargar" << endl;
             else {
                 int n = 0, m = 0;
-                // TODO R6b
+
+                while (catalogo != nullptr) {
+                    NodoApp *t = catalogo;
+                    catalogo = catalogo->sig;
+                    delete t;
+                }
+                while (tope != nullptr) {
+                    NodoBloque *t = tope;
+                    tope = tope->sig;
+                    delete t;
+                }
+                libre = DISCO;
+
+                string tipo;
+                NodoBloque *ultimoBloque = nullptr;
+
+                while (f >> tipo) {
+                    if (tipo == "A") {
+                        string nom, ver;
+                        int mb, pri, est;
+                        f >> nom >> ver >> mb >> pri >> est;
+
+                        agregarAlFinal(catalogo, nom, ver, mb, pri);
+                        NodoApp *app = buscarApp(catalogo, nom);
+                        if (app != nullptr) {
+                            app->estado = est;
+                        }
+                        n++;
+                    } else if (tipo == "B") {
+                        string nom;
+                        int mb;
+                        f >> nom >> mb;
+
+                        NodoBloque *b = new NodoBloque;
+                        b->nombre = nom;
+                        b->mb = mb;
+                        b->sig = nullptr;
+
+                        if (tope == nullptr) {
+                            tope = b;
+                        } else {
+                            ultimoBloque->sig = b;
+                        }
+                        ultimoBloque = b;
+
+                        libre -= mb;
+                        m++;
+                    }
+                }
+                f.close();
+
+                reloj = 0;
+                ultimaLlegada = 0;
+                instalaciones = 0;
+                sumaEspera = 0;
+                mbDescargados = 0;
+
                 cout << "Cargado: " << n << " apps y " << m << " bloques | libres " << libre
                      << " MB | turno nuevo" << endl;
             }
         }
+        // TODO R7a
         else if (orden == "reporte") {
-            // TODO R7a
+            cout << "Descargas: " << instalaciones << " | MB descargados: " << mbDescargados 
+                 << " | reloj: " << reloj << " s" << endl;
+            if (instalaciones > 0) {
+                double promedio = (double)sumaEspera / instalaciones;
+                cout << fixed << setprecision(2);
+                cout << "Espera promedio: " << promedio << " s" << endl;
+            } else {
+                cout << "Espera promedio: no disponible" << endl;
+            }
         }
         else if (orden == "ayuda") ayuda();
         else if (orden == "salir") break;
         else cout << orden << ": orden no encontrada (escribe ayuda)" << endl;
     }
 
-    int liberados = 0;
     // TODO R7b
-    cout << "Nodos liberados: " << liberados << ". Hasta pronto." << endl;
+    int liberados = 0;
+    while (catalogo != nullptr) {
+        NodoApp *t = catalogo;
+        catalogo = catalogo->sig;
+        delete t;
+        liberados++;
+    }
+    while (frente != nullptr) {
+        NodoFila *t = frente;
+        frente = frente->sig;
+        delete t;
+        liberados++;
+    }
+    while (tope != nullptr) {
+        NodoBloque *t = tope;
+        tope = tope->sig;
+        delete t;
+        liberados++;
+    }
+
+    cout << "Nodos liberados: " << liberados << endl;
     return 0;
 }
