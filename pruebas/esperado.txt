@@ -1,6 +1,7 @@
-  frente -> htop(1) -> openssh(1) -> discord(3) <- final
-htop: descarga 1 s | inicio 2 | fin 3 | espera 0 | libres 148 MB
-openssh: descarga 2 s | inicio 3 | fin 5 | espera 0 | libres 140 MB
-discord: descarga 24 s | inicio 5 | fin 29 | espera 5 | libres 45 MB
-vlc: descarga 12 s | inicio 31 | fin 43 | espera 0 | libres 0 MB
-E: No hay espacio suficiente para cowsay: necesita 1 MB, libres 0 MB
+  frente -> nginx(1) -> python3(2) -> krita(3) <- final
+nginx: descarga 4 s | inicio 7 | fin 11 | espera 0 | libres 262 MB
+  frente -> cmatrix(1) -> python3(2) -> libreoffice(2) -> krita(3) -> steam(3) <- final
+cmatrix: descarga 1 s | inicio 11 | fin 12 | espera 2 | libres 261 MB
+python3: descarga 13 s | inicio 12 | fin 25 | espera 8 | libres 223 MB
+E: No hay espacio suficiente para libreoffice: necesita380 Mb, libres 223 MB
+krita: descarga 60 s | inicio 25 | fin 85 | espera 25 | libres 43 MB
