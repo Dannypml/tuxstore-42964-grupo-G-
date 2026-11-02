@@ -419,10 +419,60 @@ int main() {
         }
         else if (orden == "prioridad") {
             // TODO R5a
+            // Validar que se ingresen los datos
+            if (a1 == "" || a2 == "") {
+                cout << "E: Uso: prioridad <app> <nueva_prioridad>" << endl;
+            } else {
+                int nuevaPrio;
+                aEntero(a2, nuevaPrio);
+
+                // Buscar la app en el catálogo
+                NodoApp *app = buscarApp(catalogo, a1);
+
+                if (app == nullptr) {
+                    cout << "E: No se encontro " << a1 << endl;
+                } else if (app->estado == EN_FILA) {
+                    cout << "E: No se puede cambiar prioridad (esta en fila)" << endl;
+                } else {
+                    app->prioridad = nuevaPrio;
+                    cout << "Prioridad actualizada: " << app->nombre << " -> " << app->prioridad << endl;
+                }
+            }
         }
+        
         else if (orden == "retirar") {
             // TODO R5b
+            // Validar que se ingrese el nombre
+            if (a1 == "") {
+                cout << "E: Indique el nombre de la app a retirar" << endl;
+            } else {
+                NodoApp *ant = nullptr;
+                NodoApp *act = catalogo;
+
+                // Buscar la app y guardar el nodo anterior
+                while (act != nullptr && act->nombre != a1) {
+                    ant = act;
+                    act = act->sig;
+                }
+
+                if (act == nullptr) {
+                    cout << "E: No se encontro " << a1 << endl;
+                } else if (act->estado != DISPONIBLE) {
+                    cout << "E: No se puede retirar " << a1 << " (esta en fila o instalada)" << endl;
+                } else {
+                    // Si es el primer nodo de la lista
+                    if (ant == nullptr) {
+                        catalogo = act->sig;
+                    } else {
+                        // Si está al medio o al final
+                        ant->sig = act->sig;
+                    }
+                    delete act; // Eliminar el nodo de la memoria
+                    cout << "Retirada del catalogo: " << a1 << endl;
+                }
+            }
         }
+        
         else if (orden == "guardar") {
             if (frente != nullptr) cout << "E: Procesen la fila antes de guardar" << endl;
             else {
