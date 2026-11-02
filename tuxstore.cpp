@@ -12,6 +12,7 @@
                 Eduardo Alexander Quinta Justo
                 Juan Carlos Chani Chullo
                 Cristofer Tonny Yanqui Laura
+                Eduardo Alexander Quinta Justo
    ============================================================= */
 
 #include <iostream>
@@ -367,7 +368,7 @@ int main() {
                         << " | libres " << libre << " MB" << endl;
                }
                delete pedido;
-            }
+            } 
         }
         else if (orden == "historial") {
            // TODO R4a
@@ -418,52 +419,9 @@ int main() {
         }
         else if (orden == "prioridad") {
             // TODO R5a
-            if (a1 == "" || a2 == "") {
-                cout << "E: Uso: prioridad <app> <prioridad>" << endl;
-            } else {
-                int p;
-                if (!aEntero(a2, p) || p < 1 || p > 3) {
-                    cout << "E: Prioridad invalida (debe ser 1, 2 o 3)" << endl;
-                } else {
-                    NodoApp *app = buscarApp(catalogo, a1);
-                    if (app == nullptr) {
-                        cout << "E: No se encontro " << a1 << endl;
-                    } else {
-                        app->prioridad = p;
-                        cout << "Prioridad de " << a1 << " actualizada a " << p << endl;
-                    }
-                }
-            }
         }
         else if (orden == "retirar") {
             // TODO R5b
-            if (a1 == "") {
-                cout << "E: Uso: retirar <app>" << endl;
-            } else {
-                NodoApp *ant = nullptr;
-                NodoApp *act = catalogo;
-                
-                // Recorrer la lista para encontrar la app
-                while (act != nullptr && act->nombre != a1) {
-                    ant = act;
-                    act = act->sig;
-                }
-                
-                if (act == nullptr) {
-                    cout << "E: No se encontro " << a1 << endl;
-                } else if (act->estado != DISPONIBLE) {
-                    cout << "E: La app " << a1 << " esta instalada o en fila, no se puede retirar" << endl;
-                } else {
-                    // Desenlazar el nodo
-                    if (ant == nullptr) {
-                        catalogo = act->sig;
-                    } else {
-                        ant->sig = act->sig;
-                    }
-                    cout << "Retirada del catalogo: " << a1 << endl;
-                    delete act; // Liberar memoria
-                }
-            }
         }
         else if (orden == "guardar") {
             if (frente != nullptr) cout << "E: Procesen la fila antes de guardar" << endl;
@@ -471,129 +429,31 @@ int main() {
                 ofstream f(ARCHIVO);
                 int n = 0, m = 0;
                 // TODO R6a
-                NodoApp *p = catalogo;
-                while (p != nullptr) {
-                    f << "APP " << p->nombre << " " << p->version << " " << p->mb << " " 
-                      << p->prioridad << " " << p->estado << " " << p->inicio << " " 
-                      << p->fin << " " << p->espera << "\n";
-                    n++;
-                    p = p->sig;
-                }
-                
-                NodoBloque *b = tope;
-                while (b != nullptr) {
-                    f << "BLOQUE " << b->nombre << " " << b->mb << "\n";
-                    m++;
-                    b = b->sig;
-                }
-               
                 f.close();
                 cout << "Guardado: " << n << " apps y " << m << " bloques en " << ARCHIVO << endl;
             }
         }
-else if (orden == "cargar") {
+        else if (orden == "cargar") {
             ifstream f(ARCHIVO);
             if (!f) cout << "E: No existe " << ARCHIVO << endl;
             else if (frente != nullptr) cout << "E: Procesen la fila antes de cargar" << endl;
             else {
                 int n = 0, m = 0;
-                
                 // TODO R6b
-                while (catalogo != nullptr) {
-                    NodoApp *t = catalogo;
-                    catalogo = catalogo->sig;
-                    delete t;
-                }
-                while (tope != nullptr) {
-                    NodoBloque *t = tope;
-                    tope = tope->sig;
-                    delete t;
-                }
-                libre = DISCO; 
-                string tipo;
-                NodoBloque *ultimoBloque = nullptr;
-                while (f >> tipo) {
-                    if (tipo == "APP") {
-                        string nom, ver;
-                        int mb, pri, est, ini, fin, esp;
-                        f >> nom >> ver >> mb >> pri >> est >> ini >> fin >> esp;
-                        agregarAlFinal(catalogo, nom, ver, mb, pri);
-                        NodoApp *app = buscarApp(catalogo, nom);
-                        if (app != nullptr) {
-                            app->estado = est;
-                            app->inicio = ini;
-                            app->fin = fin;
-                            app->espera = esp;
-                        }
-                        n++;
-                    } else if (tipo == "BLOQUE") {
-                        string nom; 
-                        int mb;
-                        f >> nom >> mb;
-                        NodoBloque *b = new NodoBloque;
-                        b->nombre = nom;
-                        b->mb = mb;
-                        b->sig = nullptr;
-                        
-                        if (tope == nullptr) {
-                            tope = b;
-                        } else {
-                            ultimoBloque->sig = b;
-                        }
-                        ultimoBloque = b;
-                        
-                        libre -= mb;
-                        m++;
-                    }
-                }
-                f.close();
-                reloj = 0;
-                ultimaLlegada = 0;
-                instalaciones = 0;
-                sumaEspera = 0;
-                mbDescargados = 0;
-
                 cout << "Cargado: " << n << " apps y " << m << " bloques | libres " << libre
                      << " MB | turno nuevo" << endl;
             }
         }
         else if (orden == "reporte") {
             // TODO R7a
-            cout << "--- REPORTE DEL TURNO ---" << endl;
-            cout << "Instalaciones  : " << instalaciones << endl;
-            cout << "MB descargados : " << mbDescargados << " MB" << endl;
-            if (instalaciones > 0) {
-                cout << "Espera promedio: " << (sumaEspera / instalaciones) << " s" << endl;
-            } else {
-                cout << "Espera promedio: 0 s" << endl;
-            }
-            cout << "-------------------------" << endl;
         }
         else if (orden == "ayuda") ayuda();
         else if (orden == "salir") break;
         else cout << orden << ": orden no encontrada (escribe ayuda)" << endl;
     }
-   
+
     int liberados = 0;
     // TODO R7b
-    while (catalogo != nullptr) {
-        NodoApp *t = catalogo;
-        catalogo = catalogo->sig;
-        delete t;
-        liberados++;
-    }
-    while (frente != nullptr) {
-        NodoFila *t = frente;
-        frente = frente->sig;
-        delete t;
-        liberados++;
-    }
-    while (tope != nullptr) {
-        NodoBloque *t = tope;
-        tope = tope->sig;
-        delete t;
-        liberados++;
-    }
     cout << "Nodos liberados: " << liberados << ". Hasta pronto." << endl;
     return 0;
 }
